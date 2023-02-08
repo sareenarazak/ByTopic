@@ -153,7 +153,7 @@ public class SlidingWindow {
      //7. if any time in the loop our hashmap is empty then we return true
      // 8. else return false after checking 
     
-    private static boolean foundPatternPerm(String word, String pattern) {
+   /* private static boolean foundPatternPerm(String word, String pattern) {
         if (word == null || word.length() == 0 || word.length() < pattern.length()) return false; 
         if(pattern == null || pattern.length() == 0 || word.equals(pattern)) return true;
         int patternLength = pattern.length();
@@ -186,5 +186,5 @@ public class SlidingWindow {
         }
 
 
-    }
+    }*/
 }

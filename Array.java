@@ -12,7 +12,6 @@ public class Array {
      System.out.println(minSubArraySumK(new int[]{1,1,1,1,1,1,1,1,1,1}, 11)); //0
      System.out.println(minSubArraySumK(new int[]{1,1,1,1,1,1,1,1,1,1,12}, 11)); //1
      System.out.println(minSubArraySumK(new int[]{1,1,1,1,1,1,1,1,1,1,1,1}, 11)); //11
-
     }
 
     private static int[] productExceptSelf(int[] input) {
