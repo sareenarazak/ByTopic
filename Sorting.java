@@ -7,14 +7,24 @@ public class Sorting {
         System.out.println(Arrays.toString(nums));
     }
 
+    //Bubble sort : bubble up the largest number to the end of the array --> by comparing pairs 
+    // O(N^2) 
 
-    //Selection sort
+    private static void bubbleSort(int[] input) {
+        if(input == null || input.length == 0) return;
+
+        for(int i = 0 ; i < input.length - 1; i++) {
+            if(input[i] < input[i+1]) swap(input, i, i+1);
+        }
+    }
+
+    //Selection sort : select the min from the unsorted sub array and add to the next Index of sorted subarray
     // O(N^2) time 
     private static void selectionSort(int[] input){
         if(input == null || input.length == 0) return;
         int length = input.length;
 
-        for(int nextIndexToSort = 0; nextIndexToSort < length ; nextIndexToSort++) {
+        for(int nextIndexToSort = 0; nextIndexToSort < length - 1 ; nextIndexToSort++) {
             int minIndex = nextIndexToSort;
             for(int unsorted = nextIndexToSort + 1; unsorted < length; unsorted++) {
                 if (input[minIndex] > input[unsorted]) {
