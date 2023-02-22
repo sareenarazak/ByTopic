@@ -1,5 +1,11 @@
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Array {
     public static void main(String[] args) {
@@ -12,6 +18,7 @@ public class Array {
      System.out.println(minSubArraySumK(new int[]{1,1,1,1,1,1,1,1,1,1}, 11)); //0
      System.out.println(minSubArraySumK(new int[]{1,1,1,1,1,1,1,1,1,1,12}, 11)); //1
      System.out.println(minSubArraySumK(new int[]{1,1,1,1,1,1,1,1,1,1,1,1}, 11)); //11
+
     }
 
     private static int[] productExceptSelf(int[] input) {
