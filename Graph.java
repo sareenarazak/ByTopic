@@ -37,6 +37,8 @@ public class Graph {
         // DFS print nodes
         System.out.println(dfs(adj));
         System.out.println(bfs(adj));
+        System.out.println(shortestPath(adj, 0, 2)); //[0, 9, 8, 7, 3, 2]
+        System.out.println(shortestPath(adj, 0, 1)); // [0,2]
 
     }
 
@@ -44,6 +46,43 @@ public class Graph {
         adj.get(i).add(j);
         adj.get(j).add(i);
     }
+
+    private static List<Integer> shortestPath(List<List<Integer>> graph, int source, int dest) {
+        if(graph == null || graph.isEmpty()) return null;
+
+        List<Integer> path = new LinkedList<>();
+        Integer[] parents = bfsWithPath(graph, source);
+        
+        int end = dest;
+
+        path.add(end);
+        while (parents[end] != null) {
+            path.add(0, parents[end]);
+            end = parents[end];
+        }
+        if(path.get(0) != source) return null;
+        return path;
+    }
+
+    private static Integer[] bfsWithPath(List<List<Integer>> graph, int s) {
+       Integer[] parent =  new Integer[graph.size()];
+       boolean[] visited = new boolean[graph.size()];
+
+        Queue<Integer> q = new LinkedList<>();
+        q.add(s);
+        visited[s] = true;
+        while (!q.isEmpty()) {
+            int current = q.poll();
+            for(int neighbor : graph.get(current)) {
+                if (!visited[neighbor]) {
+                    visited[neighbor] = true;
+                    q.offer(neighbor);
+                    parent[neighbor] = current;
+            }
+        }
+    }
+    return parent;
+}
 
     private static List<Integer> bfs(List<List<Integer>> graph) {
         if(graph == null || graph.isEmpty()) return null;
@@ -66,8 +105,6 @@ public class Graph {
     }
         return result;
     }
-
-
 
     private static List<Integer> dfs(List<List<Integer>> graph) {
         if(graph == null || graph.isEmpty()) return null;
