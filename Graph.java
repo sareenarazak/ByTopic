@@ -1,8 +1,21 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.Queue;
 
+class Edge {
+    int to;
+    int weight;
+    public Edge(int v, int weight) {
+        this.to = v;
+        this.weight= weight;
+    }
+}
 public class Graph {
     public static void main(String[] args) {
         // Adjacency list for storing which vertices are connected
@@ -20,6 +33,28 @@ public class Graph {
         System.out.println(topoSortDFS(directedGraph));
         System.out.println(topoSortBFS(directedGraph));
 
+        List<List<Edge>> directedWeightedGraph = new ArrayList<>();
+        createWeightedDirectedGraph(directedWeightedGraph, 5);
+        System.out.println(Arrays.toString(djikstra(directedWeightedGraph, 0)));
+
+
+    }
+
+
+    private static void createWeightedDirectedGraph(List<List<Edge>> adj, int n) {
+        for (int i = 0; i < n; i++) {
+            adj.add(new ArrayList<>());
+        }
+        addDirectedWeightedEdge(adj, 0, new Edge(2,1));
+        addDirectedWeightedEdge(adj, 0, new Edge(1,4));
+        addDirectedWeightedEdge(adj, 1, new Edge(3,1));
+        addDirectedWeightedEdge(adj, 2, new Edge(1,2));
+        addDirectedWeightedEdge(adj, 2, new Edge(3,5));
+        addDirectedWeightedEdge(adj, 3, new Edge(4,3));
+    }
+
+    private static void addDirectedWeightedEdge(List<List<Edge>> adj, int s, Edge d) {
+        adj.get(s).add(d);
     }
 
 
@@ -95,6 +130,42 @@ public class Graph {
 
     private static void addDirectedEdge(List<List<Integer>> adj, int s, int d) {
         adj.get(s).add(d);
+    }
+
+    /**
+     * 
+     * @param graph Map of node and edges from the node
+     * @param source source node for which we need the shortest distance to all nodes 
+     * @return dist array indexed by node w  shortest distance from the source node 
+     */
+    private static int[] djikstra(List<List<Edge>> graph, int s) {
+        int[] dist = new int[graph.size()];
+        boolean[] visited = new boolean[graph.size()];
+        Arrays.fill(dist, Integer.MAX_VALUE);
+        Comparator<int[]> weightComparator = (a, b) -> a[1] - b[1];
+        PriorityQueue<int[]> pq = new PriorityQueue<int[]>(weightComparator);
+
+        dist[s] = 0;
+        pq.offer(new int[] { s, 0 });
+
+        while (!pq.isEmpty()) {
+            int[] current = pq.poll();
+            visited[current[0]] = true;
+
+            for (Edge edge : graph.get(current[0])) {
+                if (!visited[edge.to]) {
+                    int minDistance = current[1] + edge.weight; // Calculate what the distance to neighbor will be with
+                                                                // the current nodes distances
+                    if (minDistance < dist[edge.to]) {
+                        // only if the new distance calculated is lower we update and add this to pq
+                        dist[edge.to] = minDistance;
+                        pq.offer(new int[] { edge.to, minDistance });
+                    }
+                }
+            }
+        }
+
+        return dist;
     }
 
     private static List<Integer> topoSortBFS(List<List<Integer>> graph) {
