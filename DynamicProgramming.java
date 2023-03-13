@@ -130,7 +130,7 @@ public class DynamicProgramming {
 
     }
 
-    // memo is indexed from 0 -> n for our case 
+    // memo is indexed from 0 -> n for our ca   se 
     private static List<Integer> howSumMemo(int target, int[] nums,Map<Integer, List<Integer>> memo) {
         if(target < 0 ) return null;
          // Since java is pass by reference we want to return a new 
