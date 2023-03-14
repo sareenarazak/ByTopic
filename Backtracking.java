@@ -24,6 +24,7 @@ public class Backtracking {
     public static void main(String[] args) {
         System.out.println(letterCombinations("23"));
         System.out.println(combinationSum(new int[]{2,3,6,7}, 7));
+        System.out.println(combinationSumBottomUp(new int[]{2,3,6,7}, 7));
 
     }
 
@@ -96,4 +97,30 @@ public class Backtracking {
             path.remove(path.size()-1);             
         }
     }
+
+
+    public static List<List<Integer>> combinationSumBottomUp(int[] candidates, int target) {
+        List<List<Integer>> result = new ArrayList<>();
+
+        // Another way to avoid duplicates is to build up the sum from bottom up --> we make sure we never go down a bath where the sum is already been explored. 
+        backtrackComboSum(0, 0,target, candidates, result, new ArrayList<>());
+        return result;
+        
+    }
+
+    private static void backtrackComboSum(int index, int currentSum, int sum, int[] nums, List<List<Integer>> result, List<Integer> path) {
+        if(currentSum > sum) return;
+        if(currentSum == sum) {
+            result.add(new ArrayList<>(path));
+            return;
+        }
+        for(int i = index; i < nums.length; i++) {     
+            path.add(nums[i]);
+            currentSum += nums[i];        
+            backtrackComboSum(i, currentSum, sum , nums, result, path);
+            path.remove(path.size()-1);     
+            currentSum -= nums[i];        
+        }
+    }
+
 }
