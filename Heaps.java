@@ -5,6 +5,17 @@ import java.util.List;
 import java.util.PriorityQueue;
 
 public class Heaps {
+    private static Map<Character,Integer> symbolValueMap =  new HashMap<>() {
+        symbolValueMap.put('I', 1);
+        symbolValueMap.put('V', 5);
+        symbolValueMap.put('X', 10);
+        symbolValueMap.put('L', 50);
+        symbolValueMap.put('C', 100);
+        symbolValueMap.put('D', 500);
+        symbolValueMap.put('M', 1000);
+
+    }
+
     public static void main(String[] args) {
         List<Integer> result = findKLargestNumbers(new int[] { 3, 1, 5, 12, 2, 11 }, 3);
         System.out.println("Here are the top K numbers: " + result);
